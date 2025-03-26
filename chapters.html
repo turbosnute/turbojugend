@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Turbojugend Chapters</title>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        .dataTables_wrapper {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Turbojugend Chapters</h1>
+    
+    <table id="chaptersTable" class="display">
+        <thead>
+            <tr>
+                <th>Chapter</th>
+            </tr>
+        </thead>
+        <tbody id="tableBody">
+            <!-- Data will be populated here -->
+        </tbody>
+    </table>
+
+    <script>
+        // Function to load and parse the JSON data
+        async function loadChapters() {
+            try {
+                // You could load the JSON file like this if it's served from your server
+                const response = await fetch('data.json');
+                const data = await response.json();
+                
+                // Extract the chapters (alternative valueStrings)
+                const chapters = [];
+                
+                // Navigate to the alternatives array (assuming the structure matches your data.json)
+                const alternatives = data[0].result.data.json[0].alternatives;
+                
+                // Extract each chapter name (valueString)
+                alternatives.forEach(alt => {
+                    if (alt.valueString) {
+                        chapters.push(alt.valueString);
+                    }
+                });
+                
+                // Populate the table
+                const tableBody = document.getElementById('tableBody');
+                chapters.forEach(chapter => {
+                    const row = document.createElement('tr');
+                    const cell = document.createElement('td');
+                    cell.textContent = chapter;
+                    row.appendChild(cell);
+                    tableBody.appendChild(row);
+                });
+                
+                // Initialize DataTable with sorting and searching
+                $(document).ready(function() {
+                    $('#chaptersTable').DataTable({
+                        paging: true,
+                        searching: true,
+                        ordering: true,
+                        info: true
+                    });
+                });
+                
+            } catch (error) {
+                console.error('Error loading chapters:', error);
+            }
+        }
+        
+        // If you don't want to load from a file, you can use this alternative 
+        // approach with the data directly embedded in the page
+        function loadEmbeddedChapters() {
+            // This is a direct approach if you want to embed the data in the HTML
+            const jsonData = /* paste your JSON data here */;
+            
+            // For demonstration, I'll create sample data directly
+            const chapters = [];
+            
+            // Extract from your data structure - adjust according to your actual data
+            const alternatives = jsonData[0].result.data.json[0].alternatives;
+            alternatives.forEach(alt => {
+                if (alt.valueString) {
+                    chapters.push(alt.valueString);
+                }
+            });
+            
+            // Populate and initialize as above
+        }
+        
+        // Call the load function when the page loads
+        loadChapters();
+    </script>
+</body>
+</html>
