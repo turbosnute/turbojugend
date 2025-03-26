@@ -1,70 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Turbojugend Chapters</title>
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-            line-height: 1.6;
-        }
-        h1 {
-            color: #333;
-            text-align: center;
-        }
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        th, td {
-            padding: 8px 12px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-        }
-        th {
-            background-color: #f2f2f2;
-            font-weight: bold;
-        }
-        tr:hover {
-            background-color: #f5f5f5;
-        }
-        .info-text {
-            text-align: center;
-            color: #666;
-            margin-bottom: 20px;
-            font-size: 0.9em;
-        }
-        .footer {
-            text-align: center;
-            margin-top: 30px;
-            padding-top: 10px;
-            border-top: 1px solid #eee;
-            font-size: 0.9em;
-            color: #666;
-        }
-        a {
-            color: #0366d6;
-            text-decoration: none;
-        }
-        a:hover {
-            text-decoration: underline;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <h1>Turbojugend Chapters</h1>
-        <p>Total Chapters: 2539</p>
-        <p class="info-text">List generated on: 2025-03-26</p>
+<!-- ... existing HTML code ... -->
         <table id="chaptersTable" class="display">
             <thead>
                 <tr>
@@ -107,10 +43,6 @@
                 </tr>
                 <tr>
                     <td>Turbojugend (Stay) Golden</td>
-                    <td>2025 or later...</td>
-                </tr>
-                <tr>
-                    <td>Turbojugend (Stay) Golden, CO</td>
                     <td>2021-11-28</td>
                 </tr>
                 <tr>
@@ -4874,6 +4806,10 @@
                     <td>2012-08-16</td>
                 </tr>
                 <tr>
+                    <td>Turbojugend LANGESUND</td>
+                    <td>2012-08-16</td>
+                </tr>
+                <tr>
                     <td>Turbojugend Langhus</td>
                     <td>2005-02-18</td>
                 </tr>
@@ -6663,7 +6599,7 @@
                 </tr>
                 <tr>
                     <td>Turbojugend Pescara</td>
-                    <td>2025 or later...</td>
+                    <td>2023-02-07</td>
                 </tr>
                 <tr>
                     <td>Turbojugend Petticoat Lane</td>
@@ -9130,14 +9066,6 @@
                     <td>2016-04-18</td>
                 </tr>
                 <tr>
-                    <td>Turbojugend TURBOJUGEND LANGESUND</td>
-                    <td>2012-08-16</td>
-                </tr>
-                <tr>
-                    <td>Turbojugend Turbojugend Pescara</td>
-                    <td>2023-02-07</td>
-                </tr>
-                <tr>
                     <td>Turbojugend Turbonitro</td>
                     <td>2020-08-19</td>
                 </tr>
@@ -9747,10 +9675,6 @@
                 </tr>
                 <tr>
                     <td>Turbojugend Washington D.C.</td>
-                    <td>2025 or later...</td>
-                </tr>
-                <tr>
-                    <td>Turbojugend Washington DC</td>
                     <td>2012-11-08</td>
                 </tr>
                 <tr>
@@ -10238,12 +10162,26 @@
     
     <script>
         $(document).ready(function() {
-            $('#chaptersTable').DataTable({
+            // Initialize DataTable
+            var table = $('#chaptersTable').DataTable({
                 paging: true,
                 searching: true,
                 ordering: true,
                 info: true,
                 pageLength: 25
+            });
+            
+            // Add keyboard navigation for arrow left/right keys
+            $(document).keydown(function(e) {
+                if (e.keyCode == 37) { // Left arrow key
+                    table.page('previous').draw(false);
+                    return false; // Prevent default action
+                }
+                else if (e.keyCode == 39) { // Right arrow key
+                    table.page('next').draw(false);
+                    return false; // Prevent default action
+                }
+                return true;
             });
         });
     </script>
